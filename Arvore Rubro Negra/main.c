@@ -225,26 +225,19 @@ void inseirNaArvore(no **raiz, int TAM){
 
 
 //Verificar se a arvre esta vazia
-int verificar(no *raz){
-    if (raz == NULL){
-        return 1;
-    }else{
-        return  0;
-    }
-}
 
 //FazerProcura na Arvore
 
-void buscar(no *raiz, int numero){
-    
-    if (verificar(raiz)){
-        printf("Numero não existe");
-    }else if (raiz->numero == numero){
-        printf("Numero encontrado");
-    }else if (numero > raiz->numero){
-        buscar(raiz->direito, numero);
+void buscar(no **pRaiz, int numero){
+    if(*pRaiz == NULL){
+        return;
+    }
+    if(numero < (*pRaiz)->numero){
+        buscar(&(*pRaiz)->esquerda, numero);
+    } else if(numero > (*pRaiz)->numero){
+        buscar(&(*pRaiz)->direito, numero);
     }else{
-        buscar(raiz->esquerda, numero);
+        return;
     }
 }
 
@@ -346,9 +339,9 @@ void remover(no *raiz, no *raizb, int numero){
             }else{
                 npai->direito =raiz;
             }
-        }else{
+    }else{
             // Se o nó possui 1 filho
-            if(raizb->direito  != raiz ^ raizb->esquerda != raiz){
+            if(raizb->direito  != raiz && raizb->esquerda != raiz){
                 AA=raizb;
                 // Nó que será removido está a esquerdauerda de seu pai
                 if(raizb->numero < npai->numero){
@@ -582,7 +575,7 @@ void main(){
     
     inicial = clock();
     
-    buscar(raiz1, A + 1 );  //inserir(&raiz1, i);
+    buscar(&raiz1, A + 1 );  //inserir(&raiz1, i);
     
     final = clock();
     
@@ -591,7 +584,7 @@ void main(){
     inicial = clock();
     
     
-    buscar(raiz2, B + 1);  //inserir(&raiz2, i);
+    buscar(&raiz2, B + 1);  //inserir(&raiz2, i);
     
     final = clock();
     tempo2 = ((double)(final - inicial)/CLOCKS_PER_SEC);
@@ -599,7 +592,7 @@ void main(){
     inicial = clock();
     
     
-    buscar(raiz3, C + 1);  //inserir(&raiz2, i);
+    buscar(&raiz3, C + 1);  //inserir(&raiz2, i);
     
     final = clock();
     tempo3 = ((double)(final - inicial)/CLOCKS_PER_SEC);
