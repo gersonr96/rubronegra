@@ -224,23 +224,24 @@ void inseirNaArvore(no **raiz, int TAM){
 
 
 
-//Verificar se a arvre esta vazia
+
 
 //FazerProcura na Arvore
 
-void buscar(no **pRaiz, int numero){
-    if(*pRaiz == NULL){
-        return;
-    }
-    if(numero < (*pRaiz)->numero){
-        buscar(&(*pRaiz)->esquerda, numero);
-    } else if(numero > (*pRaiz)->numero){
-        buscar(&(*pRaiz)->direito, numero);
+void buscar(no *raiz, no *raizb, int numero){
+    
+    if(raizb == raiz){
+        printf("Não existe");
+    }else if(raizb->numero == numero){
+        printf("Encontrado");
     }else{
-        return;
+        if(numero > (raizb->numero)){
+            buscar(raiz, raizb->direito, numero);
+        }else{
+            buscar(raiz, raizb->esquerda, numero);
+        }
     }
 }
-
 
 // Balancear na remocao
 
@@ -542,7 +543,7 @@ void main(){
     // busca
     inicial = clock();
     numero =   rand()%(maiorA-menorA+1) + menorA;
-    buscar(&raiz1, numero );  //inserir(&raiz1, i);
+    buscar(raiz1,raiz1, numero );  //inserir(&raiz1, i);
     
     final = clock();
     
@@ -551,7 +552,7 @@ void main(){
     inicial = clock();
     
     numero =   rand()%(maiorB-menorB+1) + menorB;
-    buscar(&raiz2, numero);  //inserir(&raiz2, i);
+    buscar(raiz2,raiz2, numero);  //inserir(&raiz2, i);
     
     final = clock();
     
@@ -560,7 +561,7 @@ void main(){
     inicial = clock();
     
     numero =   rand()%(maiorC-menorC+1) + menorC;
-    buscar(&raiz3, numero);   // inserir(&raiz3, i);
+    buscar(raiz3,raiz3, numero);   // inserir(&raiz3, i);
     
     final = clock();
     
@@ -575,7 +576,7 @@ void main(){
     
     inicial = clock();
     
-    buscar(&raiz1, A + 1 );  //inserir(&raiz1, i);
+    buscar(raiz1,raiz1, A + 1 );  //inserir(&raiz1, i);
     
     final = clock();
     
@@ -584,7 +585,7 @@ void main(){
     inicial = clock();
     
     
-    buscar(&raiz2, B + 1);  //inserir(&raiz2, i);
+    buscar(raiz2,raiz2, B + 1);  //inserir(&raiz2, i);
     
     final = clock();
     tempo2 = ((double)(final - inicial)/CLOCKS_PER_SEC);
@@ -592,7 +593,7 @@ void main(){
     inicial = clock();
     
     
-    buscar(&raiz3, C + 1);  //inserir(&raiz2, i);
+    buscar(raiz3,raiz3, C + 1);  //inserir(&raiz2, i);
     
     final = clock();
     tempo3 = ((double)(final - inicial)/CLOCKS_PER_SEC);
